@@ -1186,6 +1186,9 @@
                 
                 if (!res.ok) {
                     const errData = await res.json().catch(() => ({}));
+                    if (res.status === 428) {
+                        throw new Error('访问过于频繁，请稍后再试。或先在浏览器中打开 pubg.plus 完成安全验证');
+                    }
                     throw new Error(errData.error || errData.message || '获取数据失败');
                 }
                 
@@ -1509,11 +1512,16 @@
             
             try {
                 const res = await fetch(`${API_BASE}/api/player/${encodeURIComponent(name)}`);
-                if (!res.ok) throw new Error('获取失败');
-                const data = await res.json();
-                if (data.modes) {
-                    setCache(cacheKey, data);
-                    return data;
+                if (res.status === 428) {
+                    console.warn('Rate limited: 428');
+                } else if (!res.ok) {
+                    throw new Error('获取失败');
+                } else {
+                    const data = await res.json();
+                    if (data.modes) {
+                        setCache(cacheKey, data);
+                        return data;
+                    }
                 }
                 throw new Error('数据格式错误');
             } catch(e) {
