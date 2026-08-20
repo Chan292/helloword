@@ -19,6 +19,24 @@
             padding: 20px;
         }
         
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 16px;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+        .back-link:hover {
+            background: rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+        
         .container {
             max-width: 1200px;
             margin: 0 auto;
@@ -188,6 +206,7 @@
     </style>
 </head>
 <body>
+    <a href="index.html" class="back-link">← 返回主页</a>
     <div class="container">
         <header>
             <h1>我的PUBG数据统计</h1>
@@ -351,9 +370,7 @@
     </div>
     
     <script>
-        // 添加一些简单的动画效果
         document.addEventListener('DOMContentLoaded', function() {
-            // 为进度条添加动画
             const progressBars = document.querySelectorAll('.progress-fill');
             progressBars.forEach(bar => {
                 const width = bar.style.width;
@@ -363,7 +380,6 @@
                 }, 500);
             });
             
-            // 为数字添加计数动画
             const statValues = document.querySelectorAll('.stat-value');
             statValues.forEach(value => {
                 const text = value.textContent;
