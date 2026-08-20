@@ -234,41 +234,73 @@
             <h3>1.1 下载 CC Switch</h3>
             <div class="step">
                 <span class="step-number">1</span>
-                访问 CC Switch 官方下载页面：
+                <strong>GitHub 下载（推荐）</strong>
                 <pre><code>https://github.com/ccswitch/ccswitch/releases</code></pre>
+                选择对应系统版本：
+                <ul style="margin-left: 40px; margin-top: 10px;">
+                    <li>Windows: <code>ccswitch-windows-x64.zip</code></li>
+                    <li>macOS: <code>ccswitch-macos-x64.dmg</code></li>
+                    <li>Linux: <code>ccswitch-linux-x64.AppImage</code></li>
+                </ul>
             </div>
 
             <div class="step">
                 <span class="step-number">2</span>
-                根据你的系统选择对应版本（Windows / macOS / Linux）
+                <strong>Homebrew 安装（macOS）</strong>
+                <pre><code>brew install ccswitch</code></pre>
             </div>
 
             <div class="step">
                 <span class="step-number">3</span>
-                下载后解压并运行
+                <strong>Scoop 安装（Windows）</strong>
+                <pre><code>scoop install ccswitch</code></pre>
             </div>
 
             <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
 
             <h3>1.2 下载 ChatGPT 客户端</h3>
+            
+            <h4>ChatBox（推荐）</h4>
             <div class="step">
                 <span class="step-number">1</span>
-                推荐使用 <strong>ChatBox</strong>（支持自定义 API）：
+                官网下载：
                 <pre><code>https://chatboxai.app</code></pre>
             </div>
 
             <div class="step">
                 <span class="step-number">2</span>
-                或使用 <strong>NextChat</strong>（开源）：
-                <pre><code>https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web</code></pre>
+                GitHub 下载：
+                <pre><code>https://github.com/Bin-Huang/chatbox/releases</code></pre>
+                支持 Windows / macOS / Linux
+            </div>
+
+            <h4>NextChat（开源）</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                官网下载：
+                <pre><code>https://chatgpt.nextweb.fun</code></pre>
             </div>
 
             <div class="step">
-                <span class="step-number">3</span>
-                下载并安装客户端
+                <span class="step-number">2</span>
+                GitHub 下载：
+                <pre><code>https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web/releases</code></pre>
             </div>
 
-            <div class="tip">也可以使用其他支持自定义 API 的 ChatGPT 客户端。</div>
+            <h4>其他可选客户端</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>LobeChat</strong>：
+                <pre><code>https://github.com/lobehub/lobe-chat</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>ChatGPT Desktop</strong>：
+                <pre><code>https://github.com/lencx/ChatGPT</code></pre>
+            </div>
+
+            <div class="tip">以上客户端均支持自定义 API 端点，可接入 DeepSeek。</div>
         </div>
 
         <div class="section">
@@ -282,12 +314,18 @@
 
             <div class="step">
                 <span class="step-number">2</span>
-                点击注册，填写邮箱和密码完成注册
+                点击 <strong>注册</strong>，支持以下方式：
+                <ul style="margin-left: 40px; margin-top: 10px;">
+                    <li>邮箱注册（推荐）</li>
+                    <li>手机号注册</li>
+                    <li>GitHub 账号登录</li>
+                    <li>Google 账号登录</li>
+                </ul>
             </div>
 
             <div class="step">
                 <span class="step-number">3</span>
-                登录账号
+                填写信息完成注册，登录账号
             </div>
 
             <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
@@ -305,6 +343,11 @@
 
             <div class="step">
                 <span class="step-number">3</span>
+                输入密钥名称（如：<code>my-chatgpt</code>），点击确认
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
                 复制 API Key（格式：<code>sk-xxxx</code>）
             </div>
 
@@ -315,15 +358,25 @@
             <h3>2.3 充值余额（可选）</h3>
             <div class="step">
                 <span class="step-number">1</span>
-                进入 <a href="https://platform.deepseek.com" style="color: #10a37f;" target="_blank">DeepSeek 平台</a> 的费用页面
+                进入 <a href="https://platform.deepseek.com" style="color: #10a37f;" target="_blank">DeepSeek 平台</a> 的 <strong>费用</strong> 页面
             </div>
 
             <div class="step">
                 <span class="step-number">2</span>
-                DeepSeek 提供免费额度，超出后需充值
+                DeepSeek 提供 <strong>免费额度</strong>，新用户注册即送
             </div>
 
-            <div class="tip">DeepSeek V4 价格比 GPT-4 便宜很多，性价比很高。</div>
+            <div class="step">
+                <span class="step-number">3</span>
+                超出免费额度后，支持以下充值方式：
+                <ul style="margin-left: 40px; margin-top: 10px;">
+                    <li>支付宝</li>
+                    <li>微信支付</li>
+                    <li>银行卡</li>
+                </ul>
+            </div>
+
+            <div class="tip">DeepSeek V4 价格：输入 ¥1/百万 tokens，输出 ¥2/百万 tokens，比 GPT-4 便宜 10 倍以上。</div>
         </div>
 
         <div class="section">
