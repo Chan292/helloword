@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenCode + MiMo 使用指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            flex: 1;
+            width: 100%;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #f39c12;
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #e74c3c;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #ff6b35, #f39c12);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #bbb;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            color: #ff6b35;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            font-size: 1.2rem;
+            color: #f39c12;
+            margin: 20px 0 10px;
+        }
+
+        .section h4 {
+            font-size: 1.1rem;
+            color: #4fc3f7;
+            margin: 15px 0 10px;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid #ff6b35;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #ff6b35;
+            color: #1a1a2e;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: #ff6b35;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .warning {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+
+        .warning::before {
+            content: "⚠️ ";
+        }
+
+        .tip {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+
+        .tip::before {
+            content: "💡 ";
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ff6b35;
+        }
+
+        .link-card .title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .link-card .desc {
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 50px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← 返回主页</a>
+
+        <h1>OpenCode + MiMo 使用指南</h1>
+        <p class="subtitle">OpenCode 接入小米 MiMo 模型完整流程</p>
+
+        <div class="section">
+            <h2>📋 简介</h2>
+            <p>本指南介绍如何将 <strong>OpenCode</strong> 与<strong>小米 MiMo 模型</strong>结合使用，通过 AI 对话辅助编程。</p>
+            <div class="tip">小米 MiMo 是小米推出的高性能 AI 大模型，支持推理和工具调用。</div>
+        </div>
+
+        <div class="section">
+            <h2>📥 第一步：下载安装 OpenCode</h2>
+            
+            <p>OpenCode 是一个开源的 AI 编码代理，支持在终端中与 AI 对话来辅助编程。有两种使用方式：</p>
+
+            <h3>1.1 终端使用（CLI）</h3>
+            
+            <h4>Windows 安装</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>使用 Scoop 安装（推荐）</strong>
+                <pre><code>scoop install opencode</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>使用 Chocolatey 安装</strong>
+                <pre><code>choco install opencode</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>使用 NPM 安装</strong>
+                <pre><code>npm install -g opencode-ai</code></pre>
+            </div>
+
+            <h4>macOS / Linux 安装</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>使用官方脚本安装</strong>
+                <pre><code>curl -fsSL https://opencode.ai/install | bash</code></pre>
+            </div>
+
+            <h4>验证安装</h4>
+            <pre><code>opencode --version</code></pre>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <h3>1.2 下载软件使用（桌面应用）</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                访问 <a href="https://opencode.ai" style="color: #ff6b35;" target="_blank">OpenCode 官网</a> 下载桌面版
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                支持 Windows / macOS / Linux 系统
+            </div>
+
+            <div class="tip">桌面应用提供图形化界面，适合不习惯终端操作的用户。</div>
+        </div>
+
+        <div class="section">
+            <h2>🔑 第二步：获取 MiMo API Key</h2>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                访问小米 MiMo 平台：<a href="https://platform.xiaomimimo.com" style="color: #ff6b35;" target="_blank">https://platform.xiaomimimo.com</a>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                注册并登录账号
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                进入 API Keys 页面，创建新的密钥
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                复制 API Key（格式：<code>sk-xxxx</code>）
+            </div>
+
+            <div class="warning">请妥善保管你的 API Key，不要泄露给他人或提交到公开仓库。</div>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ 第三步：配置 OpenCode 接入 MiMo</h2>
+            
+            <h3>方式一：桌面版配置（推荐）</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                打开 OpenCode 桌面版，进入 <strong>设置 → Providers（模型提供商）</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                点击 <strong>新增自定义 Provider</strong>，填写以下信息：
+                <pre><code>Provider Name: Xiaomi MiMo
+Base URL: https://api.xiaomimimo.com/v1
+API Key: sk-xxxx（你的 MiMo API Key）
+Model ID: mimo-v2.5-pro</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>关键配置（必填）</strong>：开启 <code>Reasoning（思考输出）</code>，Reasoning Field 填：
+                <pre><code>reasoning_content</code></pre>
+                <div class="warning">MiMo 把思考过程放在 reasoning_content 字段，不配置会丢失思考，工具调用直接失败。</div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                保存配置，切换模型为 <code>mimo-v2.5-pro</code>
+            </div>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <h3>方式二：终端配置</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                在项目根目录创建或编辑 <code>opencode.json</code>：
+                <pre><code>{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "xiaomi-mimo": {
+      "name": "Xiaomi MiMo",
+      "type": "openai",
+      "apiKey": "sk-xxxx",
+      " baseURL": "https://api.xiaomimimo.com/v1",
+      "model": "mimo-v2.5-pro"
+    }
+  }
+}</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                启动 OpenCode 并选择 MiMo 提供商
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 第四步：开始使用</h2>
+            
+            <h3>终端使用</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                进入项目目录后启动：
+                <pre><code>cd /path/to/your/project
+opencode</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                在对话框中输入问题，例如：
+                <pre><code>帮我分析这个项目的代码结构
+解释一下 main.py 文件的功能
+帮我修复这个 bug</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                常用快捷键：
+                <pre><code>Tab        - 切换 build/plan 模式
+/init      - 初始化项目
+/undo      - 撤销更改
+Ctrl+C     - 退出</code></pre>
+            </div>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <h3>桌面版使用</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                打开 OpenCode 桌面应用
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                确认模型已切换为 <code>mimo-v2.5-pro</code>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                在对话框中输入问题即可
+            </div>
+
+            <div class="tip">MiMo 模型支持推理和工具调用，适合复杂的编程任务。</div>
+        </div>
+
+        <div class="section">
+            <h2>💡 常见问题</h2>
+            
+            <h4>Q: 为什么工具调用失败？</h4>
+            <p>A: 请确保已配置 Reasoning Field 为 <code>reasoning_content</code>，否则 MiMo 的思考过程会丢失。</p>
+
+            <h4>Q: MiMo 支持哪些模型？</h4>
+            <p>A: 目前支持 <code>mimo-v2.5-pro</code>，更多模型请查看官方文档。</p>
+
+            <h4>Q: 如何查看 API 用量？</h4>
+            <p>A: 登录 <a href="https://platform.xiaomimimo.com" style="color: #ff6b35;" target="_blank">小米 MiMo 平台</a> 查看用量和账单。</p>
+        </div>
+
+        <div class="section">
+            <h2>📚 参考链接</h2>
+            
+            <div class="links">
+                <a href="https://opencode.ai" class="link-card" target="_blank">
+                    <div class="title">OpenCode 官网</div>
+                    <div class="desc">下载和文档</div>
+                </a>
+                <a href="https://platform.xiaomimimo.com" class="link-card" target="_blank">
+                    <div class="title">小米 MiMo 平台</div>
+                    <div class="desc">获取 API Key</div>
+                </a>
+                <a href="https://github.com/anomalyco/opencode" class="link-card" target="_blank">
+                    <div class="title">OpenCode GitHub</div>
+                    <div class="desc">开源项目</div>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Chan292. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CC Switch + ChatGPT + DeepSeek V4 指南</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            flex: 1;
+            width: 100%;
+        }
+
+        .back-link {
+            display: inline-block;
+            color: #f39c12;
+            text-decoration: none;
+            margin-bottom: 30px;
+            font-size: 1rem;
+            transition: color 0.3s;
+        }
+
+        .back-link:hover {
+            color: #e74c3c;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            background: linear-gradient(90deg, #10a37f, #4fc3f7);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #bbb;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            font-size: 1.5rem;
+            color: #10a37f;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            font-size: 1.2rem;
+            color: #4fc3f7;
+            margin: 20px 0 10px;
+        }
+
+        .section h4 {
+            font-size: 1.1rem;
+            color: #f39c12;
+            margin: 15px 0 10px;
+        }
+
+        .step {
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 3px solid #10a37f;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 0 10px 10px 0;
+        }
+
+        .step-number {
+            display: inline-block;
+            background: #10a37f;
+            color: #1a1a2e;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 28px;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        code {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Courier New', monospace;
+            font-size: 0.95rem;
+            color: #10a37f;
+        }
+
+        pre {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 20px;
+            border-radius: 10px;
+            overflow-x: auto;
+            margin: 15px 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #e0e0e0;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .warning {
+            background: rgba(231, 76, 60, 0.1);
+            border: 1px solid rgba(231, 76, 60, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+
+        .warning::before {
+            content: "⚠️ ";
+        }
+
+        .tip {
+            background: rgba(46, 204, 113, 0.1);
+            border: 1px solid rgba(46, 204, 113, 0.3);
+            border-radius: 10px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+
+        .tip::before {
+            content: "💡 ";
+        }
+
+        .links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .link-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 15px 25px;
+            text-decoration: none;
+            color: #fff;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .link-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #10a37f;
+        }
+
+        .link-card .title {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .link-card .desc {
+            font-size: 0.85rem;
+            color: #bbb;
+        }
+
+        footer {
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 50px;
+            padding: 30px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .links {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← 返回主页</a>
+
+        <h1>CC Switch + ChatGPT + DeepSeek V4</h1>
+        <p class="subtitle">使用 CC Switch 将 ChatGPT 客户端接入 DeepSeek V4 API</p>
+
+        <div class="section">
+            <h2>📋 简介</h2>
+            <p>本指南介绍如何使用 <strong>CC Switch</strong> 工具，将 <strong>ChatGPT 客户端</strong>切换到 <strong>DeepSeek V4 API</strong>，享受更低成本的 AI 对话体验。</p>
+            <div class="tip">CC Switch 是一个 API 切换工具，可以让 ChatGPT 客户端使用自定义 API 端点。</div>
+        </div>
+
+        <div class="section">
+            <h2>📥 第一步：下载安装软件</h2>
+            
+            <p>需要下载两个软件：CC Switch（代理工具）和 ChatGPT 客户端。有两种使用方式：</p>
+
+            <h3>1.1 终端使用（CLI）</h3>
+            
+            <h4>CC Switch 安装</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>使用 Homebrew 安装（macOS）</strong>
+                <pre><code>brew install ccswitch</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>使用 Scoop 安装（Windows）</strong>
+                <pre><code>scoop install ccswitch</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>使用 npm 安装</strong>
+                <pre><code>npm install -g ccswitch</code></pre>
+            </div>
+
+            <h4>验证安装</h4>
+            <pre><code>ccswitch --version</code></pre>
+
+            <h4>启动 CC Switch</h4>
+            <pre><code># 启动代理服务（默认端口 7890）
+ccswitch start
+
+# 查看状态
+ccswitch status</code></pre>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <h3>1.2 下载软件使用（桌面应用）</h3>
+            
+            <h4>CC Switch 桌面版</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>GitHub 下载（推荐）</strong>
+                <pre><code>https://github.com/ccswitch/ccswitch/releases</code></pre>
+                选择对应系统版本：
+                <ul style="margin-left: 40px; margin-top: 10px;">
+                    <li>Windows: <code>ccswitch-windows-x64.zip</code></li>
+                    <li>macOS: <code>ccswitch-macos-x64.dmg</code></li>
+                    <li>Linux: <code>ccswitch-linux-x64.AppImage</code></li>
+                </ul>
+            </div>
+
+            <h4>ChatGPT 客户端</h4>
+            
+            <div class="tip">以下两种方式可以下载官方 ChatGPT 客户端：</div>
+
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>Microsoft Store 下载（Windows，推荐）</strong>
+                <pre><code>1. 打开 Microsoft Store
+2. 搜索 "ChatGPT"
+3. 点击安装</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>修改系统时间下载（如果 Store 无法下载）</strong>
+                <pre><code>1. 打开 Windows 设置 → 时间和语言 → 日期和时间
+2. 关闭"自动设置时间"
+3. 手动将时区改为美国任意地区（如 UTC-5 东部时间）
+4. 重新打开 Microsoft Store 搜索 ChatGPT
+5. 下载完成后改回北京时间</code></pre>
+            </div>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <h4>其他可选客户端</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>ChatBox（推荐，支持自定义 API）</strong>
+                <pre><code>官网下载: https://chatboxai.app
+支持 Windows / macOS / Linux / iOS / Android</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>LobeChat（开源）</strong>
+                <pre><code>官网下载: https://lobechat.com
+GitHub: https://github.com/lobehub/lobe-chat/releases</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>NextChat（开源）</strong>
+                <pre><code>官网下载: https://nextchat.dev
+GitHub: https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web/releases</code></pre>
+            </div>
+
+            <div class="tip">桌面应用提供图形化界面，适合不习惯终端操作的用户。</div>
+        </div>
+
+        <div class="section">
+            <h2>🔑 第二步：获取 DeepSeek API Key</h2>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                访问 <a href="https://platform.deepseek.com" style="color: #10a37f;" target="_blank">DeepSeek 平台</a>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                注册并登录账号（支持邮箱、手机号、GitHub、Google 登录）
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                进入 <a href="https://platform.deepseek.com/api_keys" style="color: #10a37f;" target="_blank">API Keys 页面</a>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                点击 <strong>"Create API Key"</strong> 创建新密钥
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                复制 API Key（格式：<code>sk-xxxx</code>）
+            </div>
+
+            <div class="warning">请妥善保管你的 API Key，不要泄露给他人或提交到公开仓库。</div>
+        </div>
+
+        <div class="section">
+            <h2>⚙️ 第三步：配置 CC Switch 接入 DeepSeek</h2>
+            
+            <h3>方式一：桌面版配置（推荐）</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                打开 CC Switch 桌面版，进入 <strong>设置</strong> 或 <strong>API 配置</strong> 页面
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                点击 <strong>添加新配置</strong>，填写以下信息：
+                <pre><code>API 名称: DeepSeek V4
+Base URL: https://api.deepseek.com/v1
+API Key: sk-xxxx（你的 DeepSeek API Key）
+Model: deepseek-chat</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                保存配置
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                启用该配置，设置代理端口（默认 <code>7890</code>）
+            </div>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <h3>方式二：终端配置</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                创建配置文件 <code>~/.ccswitch/config.json</code>：
+                <pre><code>{
+  "proxy": {
+    "port": 7890
+  },
+  "apis": [
+    {
+      "name": "DeepSeek V4",
+      "baseUrl": "https://api.deepseek.com/v1",
+      "apiKey": "sk-xxxx",
+      "model": "deepseek-chat"
+    }
+  ]
+}</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                启动 CC Switch 并加载配置：
+                <pre><code>ccswitch start --config ~/.ccswitch/config.json</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                验证代理是否运行：
+                <pre><code>ccswitch status</code></pre>
+            </div>
+
+            <div class="warning">确保 CC Switch 正在运行，代理端口已开启。</div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 第四步：在 ChatGPT 客户端中使用</h2>
+            
+            <h3>方式一：桌面版使用</h3>
+            
+            <h4>ChatBox 配置</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                打开 ChatBox，进入 <strong>设置</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                在 <strong>API 提供商</strong> 中选择 <strong>自定义 API</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                填写配置：
+                <pre><code>API 端点: https://api.deepseek.com/v1
+API 密钥: sk-xxxx（你的 DeepSeek API Key）
+模型: deepseek-chat</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                保存配置，开始对话
+            </div>
+
+            <h4>NextChat 配置</h4>
+            <div class="step">
+                <span class="step-number">1</span>
+                打开 NextChat，进入 <strong>设置</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                在 <strong>接口地址</strong> 填写：
+                <pre><code>https://api.deepseek.com/v1</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                在 <strong>API Key</strong> 填写你的密钥
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                在 <strong>模型</strong> 选择：
+                <pre><code>deepseek-chat</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">5</span>
+                保存配置，开始对话
+            </div>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <h3>方式二：终端使用</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                确保 CC Switch 正在运行：
+                <pre><code>ccswitch status</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                使用 curl 测试 API：
+                <pre><code>curl -x http://localhost:7890 https://api.deepseek.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer sk-xxxx" \
+  -d '{
+    "model": "deepseek-chat",
+    "messages": [
+      {"role": "user", "content": "你好"}
+    ]
+  }'</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                或使用 Python 调用：
+                <pre><code>import openai
+
+client = openai.OpenAI(
+    api_key="sk-xxxx",
+    base_url="https://api.deepseek.com/v1"
+)
+
+response = client.chat.completions.create(
+    model="deepseek-chat",
+    messages=[
+        {"role": "user", "content": "你好"}
+    ]
+)
+
+print(response.choices[0].message.content)</code></pre>
+            </div>
+
+            <div class="tip">DeepSeek V4 支持长上下文、代码生成、推理等多种能力。</div>
+        </div>
+
+        <div class="section">
+            <h2>💡 常见问题</h2>
+            
+            <h4>Q: 为什么需要 CC Switch？</h4>
+            <p>A: CC Switch 用于解决网络访问问题，如果你的网络可以直接访问 DeepSeek API，则不需要使用。</p>
+
+            <h4>Q: 支持哪些模型？</h4>
+            <p>A: DeepSeek 提供以下模型：</p>
+            <pre><code>deepseek-chat      - DeepSeek V4 对话模型
+deepseek-coder     - DeepSeek 代码模型
+deepseek-reasoner  - DeepSeek 推理模型</code></pre>
+
+            <h4>Q: 如何查看 API 用量？</h4>
+            <p>A: 登录 <a href="https://platform.deepseek.com" style="color: #10a37f;" target="_blank">DeepSeek 平台</a> 查看用量和账单。</p>
+
+            <h4>Q: 连接失败怎么办？</h4>
+            <p>A: 检查以下几点：</p>
+            <pre><code>1. CC Switch 是否正在运行
+2. API Key 是否正确
+3. 网络连接是否正常
+4. 代理端口是否正确</code></pre>
+        </div>
+
+        <div class="section">
+            <h2>📚 参考链接</h2>
+            
+            <div class="links">
+                <a href="https://platform.deepseek.com" class="link-card" target="_blank">
+                    <div class="title">DeepSeek 平台</div>
+                    <div class="desc">获取 API Key</div>
+                </a>
+                <a href="https://chatboxai.app" class="link-card" target="_blank">
+                    <div class="title">ChatBox</div>
+                    <div class="desc">ChatGPT 桌面客户端</div>
+                </a>
+                <a href="https://github.com/ChatGPTNextWeb/ChatGPT-Next-Web" class="link-card" target="_blank">
+                    <div class="title">NextChat</div>
+                    <div class="desc">开源 ChatGPT 客户端</div>
+                </a>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2026 Chan292. All rights reserved.</p>
+        </footer>
+    </div>
+</body>
+</html>
