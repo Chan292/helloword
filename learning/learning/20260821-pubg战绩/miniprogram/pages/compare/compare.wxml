@@ -1,0 +1,98 @@
+<view class="container">
+  <view class="top-bar">
+    <text class="back-btn" bindtap="goBack">返回</text>
+    <text class="page-title">战绩对比</text>
+    <view class="spacer"></view>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">
+    <image class="loading-icon" src="https://pubg.plus/favicon.ico" mode="aspectFit"></image>
+    <text class="loading-text">正在获取数据...</text>
+  </view>
+
+  <view class="error-box" wx:if="{{error}}">
+    <text class="error-icon">⚠️</text>
+    <text class="error-text">{{error}}</text>
+  </view>
+
+  <view class="compare-form" wx:if="{{!loading && !error}}">
+    <view class="player-input-group">
+      <view class="player-slot slot1">
+        <text class="slot-label">玩家一</text>
+        <input class="slot-input" placeholder="输入玩家名称" value="{{player1}}" bindinput="onInput1" bindconfirm="doCompare" />
+        <view class="quick-tags">
+          <view class="quick-tag" data-name="CCChan_292" bindtap="quickSearch1">CCChan_292</view>
+        </view>
+      </view>
+
+      <view class="vs-divider">
+        <text class="vs-text">VS</text>
+      </view>
+
+      <view class="player-slot slot2">
+        <text class="slot-label">玩家二</text>
+        <input class="slot-input" placeholder="输入玩家名称" value="{{player2}}" bindinput="onInput2" bindconfirm="doCompare" />
+        <view class="quick-tags">
+          <view class="quick-tag" data-name="KennyS" bindtap="quickSearch2">KennyS</view>
+        </view>
+      </view>
+    </view>
+
+    <view class="mode-tabs">
+      <view class="mode-tab {{currentMode === 'solo' ? 'active' : ''}}" bindtap="switchMode" data-mode="solo">单人</view>
+      <view class="mode-tab {{currentMode === 'duo' ? 'active' : ''}}" bindtap="switchMode" data-mode="duo">双人</view>
+      <view class="mode-tab {{currentMode === 'squad' ? 'active' : ''}}" bindtap="switchMode" data-mode="squad">四人</view>
+    </view>
+
+    <button class="compare-btn" bindtap="doCompare">对比战绩</button>
+  </view>
+
+  <view class="compare-results" wx:if="{{!loading && !error && compareStats.length > 0}}">
+    <view class="result-header">
+      <view class="result-player result-player1 {{player1Data && !player1Data.modes[currentMode] ? 'no-data' : ''}}">
+        <image class="result-avatar" src="{{player1Data.avatar || 'https://pubg.plus/favicon.ico'}}" mode="aspectFill"></image>
+        <text class="result-name">{{player1Data.name}}</text>
+        <text class="result-season">{{player1Data.seasonName || ''}}</text>
+      </view>
+      <view class="vs-middle">
+        <text class="vs-big">VS</text>
+        <text class="vs-mode">{{currentMode === 'squad' ? '四人' : (currentMode === 'duo' ? '双人' : '单人')}}</text>
+      </view>
+      <view class="result-player result-player2 {{player2Data && !player2Data.modes[currentMode] ? 'no-data' : ''}}">
+        <image class="result-avatar" src="{{player2Data.avatar || 'https://pubg.plus/favicon.ico'}}" mode="aspectFill"></image>
+        <text class="result-name">{{player2Data.name}}</text>
+        <text class="result-season">{{player2Data.seasonName || ''}}</text>
+      </view>
+    </view>
+
+    <view class="radar-section">
+      <text class="section-title">能力对比</text>
+      <view class="radar-container">
+        <canvas id="compareRadarCanvas" canvas-id="compareRadarCanvas" class="radar-canvas"></canvas>
+        <view class="radar-legend">
+          <view class="legend-item">
+            <view class="legend-color" style="background: #e94560;"></view>
+            <text class="legend-text">{{player1Data.name}}</text>
+          </view>
+          <view class="legend-item">
+            <view class="legend-color" style="background: #6384ff;"></view>
+            <text class="legend-text">{{player2Data.name}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="compare-table">
+      <view class="compare-row" wx:for="{{compareStats}}" wx:key="key">
+        <view class="compare-cell {{item.p1Winner ? 'winner' : (item.p1Winner === false ? 'loser' : 'draw')}}">
+          <text class="cell-value">{{item.v1}}</text>
+          <text class="cell-label">{{item.label}}</text>
+        </view>
+        <text class="compare-label">{{item.label}}</text>
+        <view class="compare-cell {{item.p2Winner ? 'winner' : (item.p2Winner === false ? 'loser' : 'draw')}}">
+          <text class="cell-value">{{item.v2}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,33 @@
+<view class="container">
+  <view class="header">
+    <image class="logo" src="https://wstatic-prod.pubg.com/web/live/static/favicons/apple-icon-180x180.png" mode="aspectFit"></image>
+    <text class="title">PUBG 战绩查询</text>
+    <text class="subtitle">查询玩家赛季数据</text>
+  </view>
+
+  <view class="search-box">
+    <input class="search-input" placeholder="输入 Steam 玩家名称" bindinput="onInput" bindconfirm="onSearchConfirm" value="{{playerName}}" />
+    <button class="search-btn" bindtap="onSearchTap" loading="{{loading}}">查询</button>
+  </view>
+
+  <view class="quick-tips" wx:if="{{!showHistory}}">
+    <text class="tip-title">快速查询：</text>
+    <view class="tag-list">
+      <view class="tag" bindtap="quickSearch" data-name="CCChan_292">CCChan_292</view>
+    </view>
+  </view>
+
+  <view class="quick-tips" wx:if="{{showHistory && recentSearches.length > 0}}">
+    <view class="tip-header">
+      <text class="tip-title">历史记录：</text>
+      <text class="clear-btn" bindtap="clearHistory">清空</text>
+    </view>
+    <view class="tag-list">
+      <view class="tag history-tag" wx:for="{{recentSearches}}" wx:key="*this" data-name="{{item}}" bindtap="quickSearch">{{item}}</view>
+    </view>
+  </view>
+
+  <view class="footer">
+    <text class="footer-text">数据来源：pubg.plus</text>
+  </view>
+</view>

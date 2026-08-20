@@ -1,0 +1,127 @@
+<view class="container">
+  <view class="top-bar">
+    <text class="back-btn" bindtap="goBack">返回</text>
+    <text class="page-title">战绩详情</text>
+    <text class="compare-btn-text" bindtap="goCompare">对比</text>
+  </view>
+
+  <view class="loading" wx:if="{{loading}}">
+    <image class="loading-icon" src="https://pubg.plus/favicon.ico" mode="aspectFit"></image>
+    <text class="loading-text">正在获取数据...</text>
+  </view>
+
+  <view class="error-box" wx:if="{{error}}">
+    <text class="error-icon">⚠️</text>
+    <text class="error-text">{{error}}</text>
+    <button class="retry-btn" bindtap="retry">重新查询</button>
+  </view>
+
+  <view class="content" wx:if="{{!loading && !error && playerData}}">
+    <view class="player-header">
+      <view class="player-avatar">
+        <image src="{{playerData.avatar || 'https://pubg.plus/favicon.ico'}}" mode="aspectFill"></image>
+      </view>
+      <view class="player-info">
+        <text class="player-name">{{playerData.name}}</text>
+        <text class="player-meta">等级 {{playerData.level || 'N/A'}} · {{playerData.seasonName || '最新赛季'}}</text>
+      </view>
+    </view>
+
+    <view class="season-selector" wx:if="{{seasons.length > 1}}">
+      <text class="season-label">赛季：</text>
+      <view class="season-chips">
+        <view class="season-chip {{seasons[idx] && seasons[idx].id === currentSeason ? 'active' : ''}}"
+              wx:for="{{seasons}}" wx:key="id" data-season="{{item.id}}" bindtap="switchSeason">
+          <text class="chip-text">{{item.name}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="mode-tabs">
+      <view class="mode-tab {{currentMode === 'solo' ? 'active' : ''}} {{playerData.modes.solo ? '' : 'disabled'}}" bindtap="switchMode" data-mode="solo">单人</view>
+      <view class="mode-tab {{currentMode === 'duo' ? 'active' : ''}} {{playerData.modes.duo ? '' : 'disabled'}}" bindtap="switchMode" data-mode="duo">双人</view>
+      <view class="mode-tab {{currentMode === 'squad' ? 'active' : ''}} {{playerData.modes.squad ? '' : 'disabled'}}" bindtap="switchMode" data-mode="squad">四人</view>
+    </view>
+
+    <view class="radar-section" wx:if="{{playerData.modes[currentMode]}}">
+      <text class="section-title">能力雷达</text>
+      <view class="radar-container">
+        <canvas canvas-id="radarCanvas" class="radar-canvas"></canvas>
+      </view>
+    </view>
+
+    <view class="empty-mode" wx:if="{{!playerData.modes[currentMode]}}">
+      <text class="empty-title">暂无该模式数据</text>
+      <text class="empty-desc">请切换到其他模式，或稍后重试查询</text>
+    </view>
+
+    <view class="stats-grid" wx:if="{{playerData.modes[currentMode]}}">
+      <view class="stat-card accent">
+        <text class="stat-value">{{currentStats.matches}}</text>
+        <text class="stat-label">场次</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{currentStats.wins}}</text>
+        <text class="stat-label">吃鸡</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{currentStats.top10}}</text>
+        <text class="stat-label">前10</text>
+      </view>
+      <view class="stat-card highlight">
+        <text class="stat-value">{{currentStats.kdRatio}}</text>
+        <text class="stat-label">K/D</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{currentStats.kills}}</text>
+        <text class="stat-label">淘汰</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{currentStats.deaths}}</text>
+        <text class="stat-label">死亡</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{currentStats.assists}}</text>
+        <text class="stat-label">助攻</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{currentStats.adr}}</text>
+        <text class="stat-label">ADR</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{currentStats.winRate}}%</text>
+        <text class="stat-label">胜率</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{currentStats.top10Rate}}%</text>
+        <text class="stat-label">前10率</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{currentStats.avgRank}}</text>
+        <text class="stat-label">平均排名</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-value">{{currentStats.avgDamage}}</text>
+        <text class="stat-label">平均伤害</text>
+      </view>
+    </view>
+
+    <view class="detail-section" wx:if="{{detailStats.length > 0}}">
+      <text class="section-title">详细数据</text>
+      <view class="detail-table">
+        <view class="table-row header">
+          <text class="col col-1">指标</text>
+          <text class="col col-2">数值</text>
+        </view>
+        <view class="table-row" wx:for="{{detailStats}}" wx:key="label">
+          <text class="col col-1">{{item.label}}</text>
+          <text class="col col-2">{{item.value}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="data-source">
+      <text class="source-text">数据来源：pubg.plus</text>
+    </view>
+  </view>
+</view>
