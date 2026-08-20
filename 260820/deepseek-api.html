@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Codex + DeepSeek 使用指南</title>
+    <title>OpenCode + MiMo 使用指南</title>
     <style>
         * {
             margin: 0;
@@ -40,7 +40,7 @@
         h1 {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            background: linear-gradient(90deg, #4fc3f7, #2196f3);
+            background: linear-gradient(90deg, #ff6b35, #f39c12);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -65,7 +65,7 @@
 
         .section h2 {
             font-size: 1.5rem;
-            color: #4fc3f7;
+            color: #ff6b35;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -78,9 +78,15 @@
             margin: 20px 0 10px;
         }
 
+        .section h4 {
+            font-size: 1.1rem;
+            color: #4fc3f7;
+            margin: 15px 0 10px;
+        }
+
         .step {
             background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid #4fc3f7;
+            border-left: 3px solid #ff6b35;
             padding: 15px 20px;
             margin: 15px 0;
             border-radius: 0 10px 10px 0;
@@ -88,7 +94,7 @@
 
         .step-number {
             display: inline-block;
-            background: #4fc3f7;
+            background: #ff6b35;
             color: #1a1a2e;
             width: 28px;
             height: 28px;
@@ -105,7 +111,7 @@
             border-radius: 4px;
             font-family: 'Consolas', 'Courier New', monospace;
             font-size: 0.95rem;
-            color: #4fc3f7;
+            color: #ff6b35;
         }
 
         pre {
@@ -123,11 +129,6 @@
             color: #e0e0e0;
             font-size: 0.9rem;
             line-height: 1.6;
-        }
-
-        .highlight {
-            color: #4fc3f7;
-            font-weight: bold;
         }
 
         .warning {
@@ -154,27 +155,6 @@
             content: "💡 ";
         }
 
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 15px 0;
-        }
-
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        th {
-            background: rgba(79, 195, 247, 0.2);
-            color: #4fc3f7;
-        }
-
-        tr:hover {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
         .links {
             display: flex;
             flex-wrap: wrap;
@@ -198,7 +178,7 @@
         .link-card:hover {
             transform: translateY(-3px);
             background: rgba(255, 255, 255, 0.1);
-            border-color: #4fc3f7;
+            border-color: #ff6b35;
         }
 
         .link-card .title {
@@ -239,13 +219,13 @@
     <div class="container">
         <a href="index.html" class="back-link">← 返回主页</a>
 
-        <h1>Codex + DeepSeek 使用指南</h1>
-        <p class="subtitle">OpenCode 配置 DeepSeek-V4 模型完整流程</p>
+        <h1>OpenCode + MiMo 使用指南</h1>
+        <p class="subtitle">OpenCode 接入小米 MiMo 模型完整流程</p>
 
         <div class="section">
             <h2>📋 简介</h2>
-            <p>DeepSeek 是一家专注于 AI 大模型研发的公司，提供高性能的 API 服务。本指南将帮助你快速上手 <strong>DeepSeek-V4</strong> 模型的 API 调用。</p>
-            <div class="tip">DeepSeek API 兼容 OpenAI API 格式，可以无缝切换。</div>
+            <p>本指南介绍如何将 <strong>OpenCode</strong> 与<strong>小米 MiMo 模型</strong>结合使用，通过 AI 对话辅助编程。</p>
+            <div class="tip">小米 MiMo 是小米推出的高性能 AI 大模型，支持推理和工具调用。</div>
         </div>
 
         <div class="section">
@@ -289,7 +269,7 @@
             <h3>1.2 下载软件使用（桌面应用）</h3>
             <div class="step">
                 <span class="step-number">1</span>
-                访问 <a href="https://opencode.ai" style="color: #4fc3f7;" target="_blank">OpenCode 官网</a> 下载桌面版
+                访问 <a href="https://opencode.ai" style="color: #ff6b35;" target="_blank">OpenCode 官网</a> 下载桌面版
             </div>
 
             <div class="step">
@@ -301,11 +281,11 @@
         </div>
 
         <div class="section">
-            <h2>🔑 第二步：获取 API Key</h2>
+            <h2>🔑 第二步：获取 MiMo API Key</h2>
             
             <div class="step">
                 <span class="step-number">1</span>
-                访问 DeepSeek 平台：<a href="https://platform.deepseek.com" style="color: #4fc3f7;" target="_blank">https://platform.deepseek.com</a>
+                访问小米 MiMo 平台：<a href="https://api.xiaomimimo.com" style="color: #ff6b35;" target="_blank">https://api.xiaomimimo.com</a>
             </div>
 
             <div class="step">
@@ -315,123 +295,77 @@
 
             <div class="step">
                 <span class="step-number">3</span>
-                进入 <a href="https://platform.deepseek.com/api_keys" style="color: #4fc3f7;" target="_blank">API Keys 页面</a>
+                进入 API Keys 页面，创建新的密钥
             </div>
 
             <div class="step">
                 <span class="step-number">4</span>
-                点击 "Create API Key" 创建新的 API Key
+                复制 API Key（格式：<code>sk-xxxx</code>）
             </div>
 
             <div class="warning">请妥善保管你的 API Key，不要泄露给他人或提交到公开仓库。</div>
         </div>
 
         <div class="section">
-            <h2>📦 第三步：安装依赖</h2>
+            <h2>⚙️ 第三步：配置 OpenCode 接入 MiMo</h2>
             
-            <h3>Python</h3>
-            <pre><code># 安装 OpenAI 官方库（DeepSeek 兼容）
-pip install openai
-
-# 或使用 uv
-uv add openai</code></pre>
-
-            <h3>Node.js</h3>
-            <pre><code># 安装 OpenAI 官方库
-npm install openai
-
-# 或使用 pnpm
-pnpm add openai</code></pre>
-        </div>
-
-        <div class="section">
-            <h2>🚀 第四步：调用 API</h2>
-            
-            <h3>Python 示例</h3>
-            <pre><code>from openai import OpenAI
-
-# 初始化客户端
-client = OpenAI(
-    api_key="your-deepseek-api-key",
-    base_url="https://api.deepseek.com/v1"
-)
-
-# 调用 DeepSeek-V4 模型
-response = client.chat.completions.create(
-    model="deepseek-chat",  # DeepSeek-V4 模型
-    messages=[
-        {"role": "system", "content": "你是一个有帮助的助手。"},
-        {"role": "user", "content": "请介绍一下DeepSeek-V4模型的特点。"}
-    ],
-    temperature=0.7,
-    max_tokens=1000
-)
-
-# 输出结果
-print(response.choices[0].message.content)</code></pre>
-
-            <h3>Node.js 示例</h3>
-            <pre><code>import OpenAI from 'openai';
-
-// 初始化客户端
-const client = new OpenAI({
-    apiKey: 'your-deepseek-api-key',
-    baseURL: 'https://api.deepseek.com/v1'
-});
-
-// 调用 DeepSeek-V4 模型
-async function chat() {
-    const response = await client.chat.completions.create({
-        model: 'deepseek-chat',  // DeepSeek-V4 模型
-        messages: [
-            { role: 'system', content: '你是一个有帮助的助手。' },
-            { role: 'user', content: '请介绍一下DeepSeek-V4模型的特点。' }
-        ],
-        temperature: 0.7,
-        max_tokens: 1000
-    });
-
-    console.log(response.choices[0].message.content);
-}
-
-chat();</code></pre>
-
-            <h3>cURL 示例</h3>
-            <pre><code>curl https://api.deepseek.com/v1/chat/completions \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer your-deepseek-api-key" \
-  -d '{
-    "model": "deepseek-chat",
-    "messages": [
-      {"role": "system", "content": "你是一个有帮助的助手。"},
-      {"role": "user", "content": "请介绍一下DeepSeek-V4模型的特点。"}
-    ],
-    "temperature": 0.7,
-    "max_tokens": 1000
-  }'</code></pre>
-
-            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
-
-            <h3>OpenCode 使用方法</h3>
-            
-            <h4>配置 DeepSeek API</h4>
+            <h3>方式一：桌面版配置（推荐）</h3>
             <div class="step">
                 <span class="step-number">1</span>
-                在终端中启动 OpenCode：
-                <pre><code>opencode</code></pre>
+                打开 OpenCode 桌面版，进入 <strong>设置 → Providers（模型提供商）</strong>
             </div>
 
             <div class="step">
                 <span class="step-number">2</span>
-                执行 <code>/connect</code> 命令，选择 DeepSeek 作为提供商
+                点击 <strong>新增自定义 Provider</strong>，填写以下信息：
+                <pre><code>Provider Name: Xiaomi MiMo
+Base URL: https://api.xiaomimimo.com/v1
+API Key: sk-xxxx（你的 MiMo API Key）
+Model ID: mimo-v2.5-pro</code></pre>
             </div>
 
             <div class="step">
                 <span class="step-number">3</span>
-                输入你的 DeepSeek API Key
+                <strong>关键配置（必填）</strong>：开启 <code>Reasoning（思考输出）</code>，Reasoning Field 填：
+                <pre><code>reasoning_content</code></pre>
+                <div class="warning">MiMo 把思考过程放在 reasoning_content 字段，不配置会丢失思考，工具调用直接失败。</div>
             </div>
 
-            <h4>基本使用</h4>
+            <div class="step">
+                <span class="step-number">4</span>
+                保存配置，切换模型为 <code>mimo-v2.5-pro</code>
+            </div>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <h3>方式二：终端配置</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                在项目根目录创建或编辑 <code>opencode.json</code>：
+                <pre><code>{
+  "$schema": "https://opencode.ai/config.json",
+  "provider": {
+    "xiaomi-mimo": {
+      "name": "Xiaomi MiMo",
+      "type": "openai",
+      "apiKey": "sk-xxxx",
+      " baseURL": "https://api.xiaomimimo.com/v1",
+      "model": "mimo-v2.5-pro"
+    }
+  }
+}</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                启动 OpenCode 并选择 MiMo 提供商
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🚀 第四步：开始使用</h2>
+            
+            <h3>终端使用</h3>
             <div class="step">
                 <span class="step-number">1</span>
                 进入项目目录后启动：
@@ -456,130 +390,55 @@ opencode</code></pre>
 Ctrl+C     - 退出</code></pre>
             </div>
 
-            <div class="tip">桌面应用的使用方式类似，通过图形界面操作更直观。</div>
-
             <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
 
-            <h3>桌面版接入小米 MiMo 模型</h3>
-            
+            <h3>桌面版使用</h3>
             <div class="step">
                 <span class="step-number">1</span>
-                打开 OpenCode 桌面版，进入 <strong>设置 → Providers（模型提供商）</strong>
+                打开 OpenCode 桌面应用
             </div>
 
             <div class="step">
                 <span class="step-number">2</span>
-                点击 <strong>新增自定义 Provider</strong>，填写以下信息：
-                <pre><code>Provider Name: Xiaomi MiMo
-Base URL: https://api.xiaomimimo.com/v1
-API Key: sk-xxxx（从小米 MiMo 平台复制）
-Model ID: mimo-v2.5-pro</code></pre>
+                确认模型已切换为 <code>mimo-v2.5-pro</code>
             </div>
 
             <div class="step">
                 <span class="step-number">3</span>
-                <strong>关键配置（必填）</strong>：开启 <code>Reasoning（思考输出）</code>，Reasoning Field 填：
-                <pre><code>reasoning_content</code></pre>
-                <div class="warning">MiMo 把思考过程放在 reasoning_content 字段，不配置会丢失思考，工具调用直接失败。</div>
+                在对话框中输入问题即可
             </div>
 
-            <div class="step">
-                <span class="step-number">4</span>
-                保存配置，切换模型为 <code>mimo-v2.5-pro</code>，即可开始对话
-            </div>
-
-            <div class="tip">小米 MiMo 平台地址：<a href="https://api.xiaomimimo.com" style="color: #4fc3f7;" target="_blank">https://api.xiaomimimo.com</a></div>
+            <div class="tip">MiMo 模型支持推理和工具调用，适合复杂的编程任务。</div>
         </div>
 
         <div class="section">
-            <h2>⚙️ 第五步：参数说明</h2>
+            <h2>💡 常见问题</h2>
             
-            <table>
-                <thead>
-                    <tr>
-                        <th>参数</th>
-                        <th>说明</th>
-                        <th>默认值</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><code>model</code></td>
-                        <td>模型名称，DeepSeek-V4 使用 <code>deepseek-chat</code></td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td><code>messages</code></td>
-                        <td>对话消息数组，包含 role 和 content</td>
-                        <td>-</td>
-                    </tr>
-                    <tr>
-                        <td><code>temperature</code></td>
-                        <td>控制输出的随机性，0-2 之间</td>
-                        <td>1.0</td>
-                    </tr>
-                    <tr>
-                        <td><code>max_tokens</code></td>
-                        <td>最大输出 token 数量</td>
-                        <td>4096</td>
-                    </tr>
-                    <tr>
-                        <td><code>top_p</code></td>
-                        <td>核采样参数，0-1 之间</td>
-                        <td>1.0</td>
-                    </tr>
-                    <tr>
-                        <td><code>stream</code></td>
-                        <td>是否使用流式输出</td>
-                        <td>false</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            <h4>Q: 为什么工具调用失败？</h4>
+            <p>A: 请确保已配置 Reasoning Field 为 <code>reasoning_content</code>，否则 MiMo 的思考过程会丢失。</p>
 
-        <div class="section">
-            <h2>💡 第六步：流式输出</h2>
-            
-            <div class="tip">流式输出可以实时显示生成内容，提升用户体验。</div>
+            <h4>Q: MiMo 支持哪些模型？</h4>
+            <p>A: 目前支持 <code>mimo-v2.5-pro</code>，更多模型请查看官方文档。</p>
 
-            <h3>Python 流式示例</h3>
-            <pre><code>from openai import OpenAI
-
-client = OpenAI(
-    api_key="your-deepseek-api-key",
-    base_url="https://api.deepseek.com/v1"
-)
-
-# 流式调用
-stream = client.chat.completions.create(
-    model="deepseek-chat",
-    messages=[
-        {"role": "user", "content": "写一首关于春天的诗"}
-    ],
-    stream=True
-)
-
-# 实时输出
-for chunk in stream:
-    if chunk.choices[0].delta.content:
-        print(chunk.choices[0].delta.content, end="", flush=True)</code></pre>
+            <h4>Q: 如何查看 API 用量？</h4>
+            <p>A: 登录 <a href="https://api.xiaomimimo.com" style="color: #ff6b35;" target="_blank">小米 MiMo 平台</a> 查看用量和账单。</p>
         </div>
 
         <div class="section">
             <h2>📚 参考链接</h2>
             
             <div class="links">
-                <a href="https://platform.deepseek.com" class="link-card" target="_blank">
-                    <div class="title">DeepSeek 平台</div>
-                    <div class="desc">官方 API 管理平台</div>
+                <a href="https://opencode.ai" class="link-card" target="_blank">
+                    <div class="title">OpenCode 官网</div>
+                    <div class="desc">下载和文档</div>
                 </a>
-                <a href="https://platform.deepseek.com/api_docs" class="link-card" target="_blank">
-                    <div class="title">API 文档</div>
-                    <div class="desc">官方 API 参考文档</div>
+                <a href="https://api.xiaomimimo.com" class="link-card" target="_blank">
+                    <div class="title">小米 MiMo 平台</div>
+                    <div class="desc">获取 API Key</div>
                 </a>
-                <a href="https://platform.deepseek.com/api_keys" class="link-card" target="_blank">
-                    <div class="title">API Keys</div>
-                    <div class="desc">管理你的 API 密钥</div>
+                <a href="https://github.com/anomalyco/opencode" class="link-card" target="_blank">
+                    <div class="title">OpenCode GitHub</div>
+                    <div class="desc">开源项目</div>
                 </a>
             </div>
         </div>
