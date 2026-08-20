@@ -1,0 +1,17 @@
+{
+  "pages": ["pages/index/index"],
+  "window": {
+    "navigationBarBackgroundColor": "#4a90d9",
+    "navigationBarTitleText": "天气助手",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#4a90d9",
+    "backgroundTextStyle": "light"
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于获取当地的实时天气"
+    }
+  },
+  "requiredPrivateInfos": ["getLocation"],
+  "sitemapLocation": "sitemap.json"
+}
