@@ -249,7 +249,44 @@
         </div>
 
         <div class="section">
-            <h2>🔑 第一步：获取 API Key</h2>
+            <h2>📥 第一步：下载安装 OpenCode</h2>
+            
+            <p>OpenCode 是一个开源的 AI 编码代理，支持在终端中与 AI 对话来辅助编程。</p>
+
+            <h3>Windows 安装</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>使用 Scoop 安装（推荐）</strong>
+                <pre><code>scoop install opencode</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                <strong>使用 Chocolatey 安装</strong>
+                <pre><code>choco install opencode</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>使用 NPM 安装</strong>
+                <pre><code>npm install -g opencode-ai</code></pre>
+            </div>
+
+            <h3>macOS / Linux 安装</h3>
+            <div class="step">
+                <span class="step-number">1</span>
+                <strong>使用官方脚本安装</strong>
+                <pre><code>curl -fsSL https://opencode.ai/install | bash</code></pre>
+            </div>
+
+            <h3>验证安装</h3>
+            <pre><code>opencode --version</code></pre>
+
+            <div class="tip">更多安装方式请参考 <a href="https://opencode.ai" style="color: #4fc3f7;">OpenCode 官网</a></div>
+        </div>
+
+        <div class="section">
+            <h2>🔑 第二步：获取 API Key</h2>
             
             <div class="step">
                 <span class="step-number">1</span>
@@ -275,7 +312,7 @@
         </div>
 
         <div class="section">
-            <h2>📦 第二步：安装依赖</h2>
+            <h2>📦 第三步：安装依赖</h2>
             
             <h3>Python</h3>
             <pre><code># 安装 OpenAI 官方库（DeepSeek 兼容）
@@ -293,7 +330,7 @@ pnpm add openai</code></pre>
         </div>
 
         <div class="section">
-            <h2>🚀 第三步：调用 API</h2>
+            <h2>🚀 第四步：调用 API</h2>
             
             <h3>Python 示例</h3>
             <pre><code>from openai import OpenAI
@@ -360,7 +397,7 @@ chat();</code></pre>
         </div>
 
         <div class="section">
-            <h2>⚙️ 第四步：参数说明</h2>
+            <h2>⚙️ 第五步：参数说明</h2>
             
             <table>
                 <thead>
@@ -406,7 +443,7 @@ chat();</code></pre>
         </div>
 
         <div class="section">
-            <h2>💡 第五步：流式输出</h2>
+            <h2>💡 第六步：流式输出</h2>
             
             <div class="tip">流式输出可以实时显示生成内容，提升用户体验。</div>
 
