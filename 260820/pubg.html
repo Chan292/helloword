@@ -1517,16 +1517,18 @@
                 }
                 throw new Error('数据格式错误');
             } catch(e) {
-                // Return demo data
+                // Return demo data with different values based on name
+                const hash = name.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+                const multiplier = 0.5 + (hash % 100) / 100;
                 return {
                     name: name,
                     avatar: 'https://wstatic-prod.pubg.com/web/live/static/favicons/apple-icon-180x180.png',
-                    level: 268,
+                    level: 100 + (hash % 400),
                     seasonName: 'Demo',
                     modes: {
-                        solo: { roundsPlayed: 45, wins: 3, top10s: 12, kills: 98, deaths: 42, assists: 15, kdRatio: '2.33', adr: '185.6', winRate: '6.7', top10Rate: '26.7', avgRank: '18.4', revives: 12, headshotKills: 25, dBNOs: 30 },
-                        duo: { roundsPlayed: 128, wins: 15, top10s: 48, kills: 325, deaths: 113, assists: 67, kdRatio: '2.88', adr: '215.3', winRate: '11.7', top10Rate: '37.5', avgRank: '12.8', revives: 45, headshotKills: 85, dBNOs: 120 },
-                        squad: { roundsPlayed: 256, wins: 38, top10s: 112, kills: 689, deaths: 218, assists: 156, kdRatio: '3.16', adr: '245.8', winRate: '14.8', top10Rate: '43.8', avgRank: '9.6', revives: 98, headshotKills: 175, dBNOs: 280 }
+                        solo: { roundsPlayed: Math.round(45 * multiplier), wins: Math.round(3 * multiplier), top10s: Math.round(12 * multiplier), kills: Math.round(98 * multiplier), deaths: Math.round(42 * multiplier), assists: Math.round(15 * multiplier), kdRatio: (2.33 * multiplier).toFixed(2), adr: (185.6 * multiplier).toFixed(1), winRate: (6.7 * multiplier).toFixed(1), top10Rate: (26.7 * multiplier).toFixed(1), avgRank: (18.4 / multiplier).toFixed(1), revives: Math.round(12 * multiplier), headshotKills: Math.round(25 * multiplier), dBNOs: Math.round(30 * multiplier) },
+                        duo: { roundsPlayed: Math.round(128 * multiplier), wins: Math.round(15 * multiplier), top10s: Math.round(48 * multiplier), kills: Math.round(325 * multiplier), deaths: Math.round(113 * multiplier), assists: Math.round(67 * multiplier), kdRatio: (2.88 * multiplier).toFixed(2), adr: (215.3 * multiplier).toFixed(1), winRate: (11.7 * multiplier).toFixed(1), top10Rate: (37.5 * multiplier).toFixed(1), avgRank: (12.8 / multiplier).toFixed(1), revives: Math.round(45 * multiplier), headshotKills: Math.round(85 * multiplier), dBNOs: Math.round(120 * multiplier) },
+                        squad: { roundsPlayed: Math.round(256 * multiplier), wins: Math.round(38 * multiplier), top10s: Math.round(112 * multiplier), kills: Math.round(689 * multiplier), deaths: Math.round(218 * multiplier), assists: Math.round(156 * multiplier), kdRatio: (3.16 * multiplier).toFixed(2), adr: (245.8 * multiplier).toFixed(1), winRate: (14.8 * multiplier).toFixed(1), top10Rate: (43.8 * multiplier).toFixed(1), avgRank: (9.6 / multiplier).toFixed(1), revives: Math.round(98 * multiplier), headshotKills: Math.round(175 * multiplier), dBNOs: Math.round(280 * multiplier) }
                     }
                 };
             }
