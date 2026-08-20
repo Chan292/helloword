@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenCode + 小米API 搭建指南</title>
+    <title>DeepSeek API 使用指南</title>
     <style>
         * {
             margin: 0;
@@ -40,7 +40,7 @@
         h1 {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            background: linear-gradient(90deg, #f39c12, #e74c3c);
+            background: linear-gradient(90deg, #4fc3f7, #2196f3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -65,7 +65,7 @@
 
         .section h2 {
             font-size: 1.5rem;
-            color: #f39c12;
+            color: #4fc3f7;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
@@ -74,13 +74,13 @@
 
         .section h3 {
             font-size: 1.2rem;
-            color: #e74c3c;
+            color: #f39c12;
             margin: 20px 0 10px;
         }
 
         .step {
             background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid #f39c12;
+            border-left: 3px solid #4fc3f7;
             padding: 15px 20px;
             margin: 15px 0;
             border-radius: 0 10px 10px 0;
@@ -88,7 +88,7 @@
 
         .step-number {
             display: inline-block;
-            background: #f39c12;
+            background: #4fc3f7;
             color: #1a1a2e;
             width: 28px;
             height: 28px;
@@ -105,7 +105,7 @@
             border-radius: 4px;
             font-family: 'Consolas', 'Courier New', monospace;
             font-size: 0.95rem;
-            color: #f39c12;
+            color: #4fc3f7;
         }
 
         pre {
@@ -126,7 +126,7 @@
         }
 
         .highlight {
-            color: #2ecc71;
+            color: #4fc3f7;
             font-weight: bold;
         }
 
@@ -167,8 +167,8 @@
         }
 
         th {
-            background: rgba(243, 156, 18, 0.2);
-            color: #f39c12;
+            background: rgba(79, 195, 247, 0.2);
+            color: #4fc3f7;
         }
 
         tr:hover {
@@ -198,7 +198,7 @@
         .link-card:hover {
             transform: translateY(-3px);
             background: rgba(255, 255, 255, 0.1);
-            border-color: #f39c12;
+            border-color: #4fc3f7;
         }
 
         .link-card .title {
@@ -239,198 +239,215 @@
     <div class="container">
         <a href="index.html" class="back-link">← 返回主页</a>
 
-        <h1>OpenCode + 小米API 搭建指南</h1>
-        <p class="subtitle">通过 AI 对话控制米家智能家居设备</p>
+        <h1>DeepSeek API 使用指南</h1>
+        <p class="subtitle">DeepSeek-V4 模型调用流程</p>
 
         <div class="section">
             <h2>📋 简介</h2>
-            <p>本指南将帮助你搭建 <strong>OpenCode</strong> 与 <strong>小米米家API</strong> 的集成环境，让你可以通过自然语言对话来控制米家智能家居设备。</p>
-            <div class="tip">OpenCode 是一个开源的 AI 编码代理，支持通过 MCP 协议接入各种工具，包括米家设备控制。</div>
+            <p>DeepSeek 是一家专注于 AI 大模型研发的公司，提供高性能的 API 服务。本指南将帮助你快速上手 <strong>DeepSeek-V4</strong> 模型的 API 调用。</p>
+            <div class="tip">DeepSeek API 兼容 OpenAI API 格式，可以无缝切换。</div>
         </div>
 
         <div class="section">
-            <h2>🔧 第一步：安装 OpenCode</h2>
+            <h2>🔑 第一步：获取 API Key</h2>
             
-            <h3>Windows 安装方式</h3>
             <div class="step">
                 <span class="step-number">1</span>
-                <strong>使用 Scoop 安装（推荐）</strong>
-                <pre><code>scoop install opencode</code></pre>
+                访问 DeepSeek 平台：<a href="https://platform.deepseek.com" style="color: #4fc3f7;">https://platform.deepseek.com</a>
             </div>
 
             <div class="step">
                 <span class="step-number">2</span>
-                <strong>使用 Chocolatey 安装</strong>
-                <pre><code>choco install opencode</code></pre>
+                注册并登录账号
             </div>
 
             <div class="step">
                 <span class="step-number">3</span>
-                <strong>使用 NPM 安装</strong>
-                <pre><code>npm install -g opencode-ai</code></pre>
+                进入 <a href="https://platform.deepseek.com/api_keys" style="color: #4fc3f7;">API Keys 页面</a>
             </div>
 
-            <div class="warning">Windows 用户建议使用 WSL 以获得最佳体验</div>
+            <div class="step">
+                <span class="step-number">4</span>
+                点击 "Create API Key" 创建新的 API Key
+            </div>
+
+            <div class="warning">请妥善保管你的 API Key，不要泄露给他人或提交到公开仓库。</div>
         </div>
 
         <div class="section">
-            <h2>🔑 第二步：配置 LLM 提供商</h2>
+            <h2>📦 第二步：安装依赖</h2>
             
-            <div class="step">
-                <span class="step-number">1</span>
-                启动 OpenCode 后，执行 <code>/connect</code> 命令选择提供商
-            </div>
-
-            <div class="step">
-                <span class="step-number">2</span>
-                或手动设置环境变量：
-                <pre><code># OpenAI
-export OPENAI_API_KEY="your-api-key"
-
-# Anthropic Claude
-export ANTHROPIC_API_KEY="your-api-key"
-
-# Google Gemini
-export GEMINI_API_KEY="your-api-key"</code></pre>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>📱 第三步：安装小米API</h2>
-            
-            <div class="step">
-                <span class="step-number">1</span>
-                <strong>安装 Python 依赖</strong>
-                <pre><code># 使用 pip
-pip install mijiaAPI
+            <h3>Python</h3>
+            <pre><code># 安装 OpenAI 官方库（DeepSeek 兼容）
+pip install openai
 
 # 或使用 uv
-uv add mijiaAPI</code></pre>
-            </div>
+uv add openai</code></pre>
 
-            <div class="step">
-                <span class="step-number">2</span>
-                <strong>扫码登录认证</strong>
-                <pre><code># 使用 CLI 登录
-mijiaAPI login
+            <h3>Node.js</h3>
+            <pre><code># 安装 OpenAI 官方库
+npm install openai
 
-# 或使用 uvx
-uvx mijiaAPI login -p ~/.config/mijia-api/auth.json</code></pre>
-                <div class="tip">使用米家 APP 扫描终端显示的二维码完成登录</div>
-            </div>
+# 或使用 pnpm
+pnpm add openai</code></pre>
         </div>
 
         <div class="section">
-            <h2>🔗 第四步：配置 MCP 集成</h2>
+            <h2>🚀 第三步：调用 API</h2>
             
-            <div class="step">
-                <span class="step-number">1</span>
-                在项目根目录创建或编辑 <code>opencode.json</code> 配置文件：
-                <pre><code>{
-  "$schema": "https://opencode.ai/config.json",
-  "mcp": {
-    "mijia-api": {
-      "type": "local",
-      "command": ["uvx", "mijiaAPI", "mcp", "-p", "~/.config/mijia-api/auth.json"],
-      "enabled": true
-    }
-  }
-}</code></pre>
-            </div>
+            <h3>Python 示例</h3>
+            <pre><code>from openai import OpenAI
 
-            <div class="warning">Windows 用户需确认 <code>uvx</code> 命令可用（需要安装 uv 工具），路径可能需要使用绝对路径</div>
+# 初始化客户端
+client = OpenAI(
+    api_key="your-deepseek-api-key",
+    base_url="https://api.deepseek.com/v1"
+)
+
+# 调用 DeepSeek-V4 模型
+response = client.chat.completions.create(
+    model="deepseek-chat",  # DeepSeek-V4 模型
+    messages=[
+        {"role": "system", "content": "你是一个有帮助的助手。"},
+        {"role": "user", "content": "请介绍一下DeepSeek-V4模型的特点。"}
+    ],
+    temperature=0.7,
+    max_tokens=1000
+)
+
+# 输出结果
+print(response.choices[0].message.content)</code></pre>
+
+            <h3>Node.js 示例</h3>
+            <pre><code>import OpenAI from 'openai';
+
+// 初始化客户端
+const client = new OpenAI({
+    apiKey: 'your-deepseek-api-key',
+    baseURL: 'https://api.deepseek.com/v1'
+});
+
+// 调用 DeepSeek-V4 模型
+async function chat() {
+    const response = await client.chat.completions.create({
+        model: 'deepseek-chat',  // DeepSeek-V4 模型
+        messages: [
+            { role: 'system', content: '你是一个有帮助的助手。' },
+            { role: 'user', content: '请介绍一下DeepSeek-V4模型的特点。' }
+        ],
+        temperature: 0.7,
+        max_tokens: 1000
+    });
+
+    console.log(response.choices[0].message.content);
+}
+
+chat();</code></pre>
+
+            <h3>cURL 示例</h3>
+            <pre><code>curl https://api.deepseek.com/v1/chat/completions \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer your-deepseek-api-key" \
+  -d '{
+    "model": "deepseek-chat",
+    "messages": [
+      {"role": "system", "content": "你是一个有帮助的助手。"},
+      {"role": "user", "content": "请介绍一下DeepSeek-V4模型的特点。"}
+    ],
+    "temperature": 0.7,
+    "max_tokens": 1000
+  }'</code></pre>
         </div>
 
         <div class="section">
-            <h2>🚀 第五步：开始使用</h2>
-            
-            <div class="step">
-                <span class="step-number">1</span>
-                启动 OpenCode：
-                <pre><code>cd /path/to/project
-opencode</code></pre>
-            </div>
-
-            <div class="step">
-                <span class="step-number">2</span>
-                通过自然语言控制米家设备，例如：
-                <pre><code>列出我所有的米家设备
-把台灯亮度调到 60%
-打开客厅空调
-查看设备的耗电量统计</code></pre>
-            </div>
-        </div>
-
-        <div class="section">
-            <h2>🛠️ MCP 工具一览</h2>
+            <h2>⚙️ 第四步：参数说明</h2>
             
             <table>
                 <thead>
                     <tr>
-                        <th>工具</th>
+                        <th>参数</th>
                         <th>说明</th>
+                        <th>默认值</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><code>list_devices</code></td>
-                        <td>列出所有米家设备</td>
+                        <td><code>model</code></td>
+                        <td>模型名称，DeepSeek-V4 使用 <code>deepseek-chat</code></td>
+                        <td>-</td>
                     </tr>
                     <tr>
-                        <td><code>list_homes</code></td>
-                        <td>列出家庭和房间信息</td>
+                        <td><code>messages</code></td>
+                        <td>对话消息数组，包含 role 和 content</td>
+                        <td>-</td>
                     </tr>
                     <tr>
-                        <td><code>get_device_spec</code></td>
-                        <td>获取设备支持的属性和动作</td>
+                        <td><code>temperature</code></td>
+                        <td>控制输出的随机性，0-2 之间</td>
+                        <td>1.0</td>
                     </tr>
                     <tr>
-                        <td><code>get_device_properties</code></td>
-                        <td>读取设备属性值</td>
+                        <td><code>max_tokens</code></td>
+                        <td>最大输出 token 数量</td>
+                        <td>4096</td>
                     </tr>
                     <tr>
-                        <td><code>set_device_property</code></td>
-                        <td>设置设备属性值</td>
+                        <td><code>top_p</code></td>
+                        <td>核采样参数，0-1 之间</td>
+                        <td>1.0</td>
                     </tr>
                     <tr>
-                        <td><code>run_device_action</code></td>
-                        <td>执行设备动作</td>
-                    </tr>
-                    <tr>
-                        <td><code>run_scene</code></td>
-                        <td>执行手动场景</td>
-                    </tr>
-                    <tr>
-                        <td><code>run_speaker_command</code></td>
-                        <td>通过小爱音箱执行自然语言指令</td>
-                    </tr>
-                    <tr>
-                        <td><code>login</code></td>
-                        <td>会话内重新登录（凭证过期时使用）</td>
+                        <td><code>stream</code></td>
+                        <td>是否使用流式输出</td>
+                        <td>false</td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="section">
+            <h2>💡 第五步：流式输出</h2>
+            
+            <div class="tip">流式输出可以实时显示生成内容，提升用户体验。</div>
+
+            <h3>Python 流式示例</h3>
+            <pre><code>from openai import OpenAI
+
+client = OpenAI(
+    api_key="your-deepseek-api-key",
+    base_url="https://api.deepseek.com/v1"
+)
+
+# 流式调用
+stream = client.chat.completions.create(
+    model="deepseek-chat",
+    messages=[
+        {"role": "user", "content": "写一首关于春天的诗"}
+    ],
+    stream=True
+)
+
+# 实时输出
+for chunk in stream:
+    if chunk.choices[0].delta.content:
+        print(chunk.choices[0].delta.content, end="", flush=True)</code></pre>
+        </div>
+
+        <div class="section">
             <h2>📚 参考链接</h2>
             
             <div class="links">
-                <a href="https://github.com/anomalyco/opencode" class="link-card" target="_blank">
-                    <div class="title">OpenCode GitHub</div>
-                    <div class="desc">AI 编码代理开源项目</div>
+                <a href="https://platform.deepseek.com" class="link-card" target="_blank">
+                    <div class="title">DeepSeek 平台</div>
+                    <div class="desc">官方 API 管理平台</div>
                 </a>
-                <a href="https://opencode.ai/docs" class="link-card" target="_blank">
-                    <div class="title">OpenCode 文档</div>
-                    <div class="desc">官方使用文档</div>
+                <a href="https://platform.deepseek.com/api_docs" class="link-card" target="_blank">
+                    <div class="title">API 文档</div>
+                    <div class="desc">官方 API 参考文档</div>
                 </a>
-                <a href="https://github.com/Do1e/mijia-api" class="link-card" target="_blank">
-                    <div class="title">mijiaAPI GitHub</div>
-                    <div class="desc">米家API Python库</div>
-                </a>
-                <a href="https://mijia-api.do1e.com" class="link-card" target="_blank">
-                    <div class="title">mijiaAPI 文档</div>
-                    <div class="desc">米家API使用文档</div>
+                <a href="https://platform.deepseek.com/api_keys" class="link-card" target="_blank">
+                    <div class="title">API Keys</div>
+                    <div class="desc">管理你的 API 密钥</div>
                 </a>
             </div>
         </div>
