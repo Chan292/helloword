@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的PUBG数据统计</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+            margin-bottom: 40px;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #f39c12, #e74c3c);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            color: #bbb;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .stat-card h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #f39c12;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .stat-card h2 i {
+            font-size: 1.8rem;
+        }
+        
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-item:last-child {
+            border-bottom: none;
+        }
+        
+        .stat-label {
+            color: #bbb;
+            font-size: 1rem;
+        }
+        
+        .stat-value {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .highlight {
+            color: #e74c3c;
+        }
+        
+        .weapon-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .weapon-section h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #f39c12;
+            text-align: center;
+        }
+        
+        .weapon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .weapon-card {
+            background: rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .weapon-name {
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            color: #fff;
+        }
+        
+        .weapon-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .weapon-stat {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #f39c12, #e74c3c);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px 0;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .weapon-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>我的PUBG数据统计</h1>
+            <p class="subtitle">绝地求生个人战绩分析</p>
+        </header>
+        
+        <div class="stats-grid">
+            <div class="stat-card">
+                <h2>🎮 基础数据</h2>
+                <div class="stat-item">
+                    <span class="stat-label">游戏时长</span>
+                    <span class="stat-value">1,250 小时</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">总场次</span>
+                    <span class="stat-value">3,842 场</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">吃鸡次数</span>
+                    <span class="stat-value highlight">287 次</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">前十次数</span>
+                    <span class="stat-value">1,245 次</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <h2>🎯 战斗数据</h2>
+                <div class="stat-item">
+                    <span class="stat-label">总击杀</span>
+                    <span class="stat-value highlight">8,542</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">K/D 比</span>
+                    <span class="stat-value">3.24</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">平均伤害</span>
+                    <span class="stat-value">385.6</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">爆头率</span>
+                    <span class="stat-value">24.8%</span>
+                </div>
+            </div>
+            
+            <div class="stat-card">
+                <h2>🏆 生存数据</h2>
+                <div class="stat-item">
+                    <span class="stat-label">吃鸡率</span>
+                    <span class="stat-value">7.47%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">前十率</span>
+                    <span class="stat-value">32.4%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">最远击杀</span>
+                    <span class="stat-value">1,247 米</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">最高击杀</span>
+                    <span class="stat-value highlight">18 杀</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="weapon-section">
+            <h2>🔫 常用武器数据</h2>
+            <div class="weapon-grid">
+                <div class="weapon-card">
+                    <div class="weapon-name">M416</div>
+                    <div class="weapon-stats">
+                        <div class="weapon-stat">
+                            <span>使用次数</span>
+                            <span>1,245 次</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span>击杀数</span>
+                            <span>2,847</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span>爆头率</span>
+                            <span>26.3%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">Kar98k</div>
+                    <div class="weapon-stats">
+                        <div class="weapon-stat">
+                            <span>使用次数</span>
+                            <span>876 次</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span>击杀数</span>
+                            <span>1,562</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span>爆头率</span>
+                            <span>45.2%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 72%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">AWM</div>
+                    <div class="weapon-stats">
+                        <div class="weapon-stat">
+                            <span>使用次数</span>
+                            <span>324 次</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span>击杀数</span>
+                            <span>892</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span>爆头率</span>
+                            <span>62.1%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 65%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="weapon-card">
+                    <div class="weapon-name">UMP45</div>
+                    <div class="weapon-stats">
+                        <div class="weapon-stat">
+                            <span>使用次数</span>
+                            <span>654 次</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span>击杀数</span>
+                            <span>1,234</span>
+                        </div>
+                        <div class="weapon-stat">
+                            <span>爆头率</span>
+                            <span>18.7%</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 58%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>数据统计时间：2026年8月20日 | 游戏ID：Player_2026</p>
+        </footer>
+    </div>
+    
+    <script>
+        // 添加一些简单的动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为进度条添加动画
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+            
+            // 为数字添加计数动画
+            const statValues = document.querySelectorAll('.stat-value');
+            statValues.forEach(value => {
+                const text = value.textContent;
+                if (text.includes('%')) {
+                    const num = parseFloat(text);
+                    animateValue(value, 0, num, 1000, '%');
+                } else if (text.includes(',')) {
+                    const num = parseInt(text.replace(/,/g, ''));
+                    animateValue(value, 0, num, 1500, '');
+                }
+            });
+        });
+        
+        function animateValue(element, start, end, duration, suffix) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                const current = Math.floor(progress * (end - start) + start);
+                
+                if (suffix === '%') {
+                    element.textContent = current.toFixed(1) + suffix;
+                } else {
+                    element.textContent = current.toLocaleString() + suffix;
+                }
+                
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+    </script>
+</body>
+</html>
