@@ -457,6 +457,38 @@ Ctrl+C     - 退出</code></pre>
             </div>
 
             <div class="tip">桌面应用的使用方式类似，通过图形界面操作更直观。</div>
+
+            <hr style="border-color: rgba(255,255,255,0.1); margin: 30px 0;">
+
+            <h3>桌面版接入小米 MiMo 模型</h3>
+            
+            <div class="step">
+                <span class="step-number">1</span>
+                打开 OpenCode 桌面版，进入 <strong>设置 → Providers（模型提供商）</strong>
+            </div>
+
+            <div class="step">
+                <span class="step-number">2</span>
+                点击 <strong>新增自定义 Provider</strong>，填写以下信息：
+                <pre><code>Provider Name: Xiaomi MiMo
+Base URL: https://api.xiaomimimo.com/v1
+API Key: sk-xxxx（从小米 MiMo 平台复制）
+Model ID: mimo-v2.5-pro</code></pre>
+            </div>
+
+            <div class="step">
+                <span class="step-number">3</span>
+                <strong>关键配置（必填）</strong>：开启 <code>Reasoning（思考输出）</code>，Reasoning Field 填：
+                <pre><code>reasoning_content</code></pre>
+                <div class="warning">MiMo 把思考过程放在 reasoning_content 字段，不配置会丢失思考，工具调用直接失败。</div>
+            </div>
+
+            <div class="step">
+                <span class="step-number">4</span>
+                保存配置，切换模型为 <code>mimo-v2.5-pro</code>，即可开始对话
+            </div>
+
+            <div class="tip">小米 MiMo 平台地址：<a href="https://api.xiaomimimo.com" style="color: #4fc3f7;" target="_blank">https://api.xiaomimimo.com</a></div>
         </div>
 
         <div class="section">
