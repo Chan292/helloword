@@ -336,13 +336,7 @@
                     return html;
                 }
             },
-            visualMap: {
-                type: 'piecewise', pieces: colorPieces,
-                left: 'center', bottom: 10,
-                textStyle: { color: '#bbb', fontSize: 11 },
-                itemWidth: 18, itemHeight: 10, itemGap: 6,
-                show: true
-            },
+            visualMap: { show: false },
             series: [{
                 type: 'map', map: 'china', roam: true, zoom: 1.2,
                 scaleLimit: { min: 1, max: 5 },
