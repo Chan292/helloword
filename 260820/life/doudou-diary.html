@@ -197,40 +197,71 @@
         }
 
         @media (max-width: 768px) {
-            .timeline::before {
-                left: 20px;
-            }
-
-            .timeline-item,
-            .timeline-item:nth-child(even) {
-                flex-direction: column;
-                padding-left: 50px;
-            }
-
-            .timeline-date,
-            .timeline-item:nth-child(even) .timeline-date {
-                text-align: left;
-                padding: 0;
-                margin-bottom: 10px;
-            }
-
-            .timeline-dot {
-                left: 20px;
-                top: 0;
-            }
-
-            .timeline-content,
-            .timeline-item:nth-child(even) .timeline-content {
-                padding: 0;
-                text-align: left;
+            .header {
+                padding: 60px 15px 30px;
             }
 
             h1 {
                 font-size: 1.8rem;
             }
 
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .timeline {
+                padding: 10px 15px;
+            }
+
+            .timeline::before {
+                left: 50%;
+            }
+
+            .timeline-item {
+                margin-bottom: 40px;
+            }
+
+            .timeline-date {
+                padding-right: 20px;
+            }
+
+            .timeline-item:nth-child(even) .timeline-date {
+                padding-left: 20px;
+                padding-right: 0;
+            }
+
+            .timeline-content {
+                padding-left: 20px;
+            }
+
+            .timeline-item:nth-child(even) .timeline-content {
+                padding-right: 20px;
+                padding-left: 0;
+            }
+
+            .timeline-dot {
+                width: 12px;
+                height: 12px;
+            }
+
             .photo-card img {
-                max-height: 300px;
+                max-height: 250px;
+            }
+
+            .photo-desc {
+                padding: 10px;
+            }
+
+            .photo-desc p {
+                font-size: 0.85rem;
+            }
+
+            .date-text {
+                font-size: 0.95rem;
+            }
+
+            .age-text {
+                font-size: 0.8rem;
             }
         }
     </style>
