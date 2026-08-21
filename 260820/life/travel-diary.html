@@ -458,7 +458,6 @@
     // 初始化
     loadChinaMap().then(function() {
         showChinaView();
-        showTripList(null);
     }).catch(function(err) {
         console.error('加载中国地图失败:', err);
         if (chart) { chart.dispose(); }
