@@ -55,11 +55,7 @@
             display: none; gap: 20px; margin-top: 10px; justify-content: center; align-items: center;
         }
         .city-legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: #bbb; }
-        .trip-list {
-            display: none; width: 100%; max-width: 960px; margin-top: 20px;
-            background: rgba(255,255,255,0.03); border-radius: 16px;
-            border: 1px solid rgba(255,255,255,0.08); padding: 20px; text-align: left;
-        }
+        .trip-list { display: none !important; }
         .trip-list h3 { color: #f39c12; margin-bottom: 12px; font-size: 1.1rem; }
         .trip-table { width: 100%; border-collapse: collapse; }
         .trip-table th { color: #999; font-weight: normal; font-size: 0.85rem; text-align: left; padding: 6px 12px; border-bottom: 1px solid rgba(255,255,255,0.1); }
@@ -240,29 +236,6 @@
     }
     updateStats();
 
-    // ===== 出行记录表 =====
-    function showTripList(provinceName) {
-        const list = document.getElementById('trip-list');
-        const tbody = document.getElementById('trip-tbody');
-        const title = document.getElementById('trip-list-title');
-        list.style.display = 'block';
-        title.textContent = (provinceName || '全部') + ' - 出行记录';
-        tbody.innerHTML = '';
-        const records = provinceName
-            ? tripRecords.filter(r => {
-                const cities = Object.entries(cityDatabase).find(([p]) => p === provinceName);
-                if (!cities) return false;
-                return r.places.includes(provinceName) ||
-                    cities[1].some(c => r.places.includes(c[0]));
-            })
-            : tripRecords;
-        records.forEach(r => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `<td class="year-cell">${r.year}</td><td class="month-cell">${r.month}月</td><td>${r.places}</td>`;
-            tbody.appendChild(tr);
-        });
-    }
-
     // ===== ECharts 地图 =====
     const chartDom = document.getElementById('map-container');
     const chart = echarts.init(chartDom, null, { renderer: 'canvas' });
@@ -330,7 +303,6 @@
         currentProvince = null;
         document.getElementById('map-header').style.display = 'none';
         document.getElementById('city-legend').style.display = 'none';
-        showTripList(null);
 
         var mapData = Object.keys(provinceAdcodes).map(function(name) {
             return { name: name, value: provinceVisits[name] || 0 };
@@ -360,6 +332,7 @@
             },
             series: [{
                 type: 'map', map: 'china', roam: true, zoom: 1.2,
+                scaleLimit: { min: 1, max: 5 },
                 center: [105, 36],
                 label: { show: false },
                 itemStyle: {
@@ -396,7 +369,6 @@
         document.getElementById('map-header').style.display = 'block';
         document.getElementById('province-title').textContent = provinceName;
         document.getElementById('city-legend').style.display = 'flex';
-        showTripList(provinceName);
 
         chart.showLoading({ text: '加载中...', color: '#f39c12',
             maskColor: 'rgba(0,0,0,0.3)', textColor: '#fff' });
@@ -441,6 +413,7 @@
                     },
                     geo: {
                         map: mapName, roam: true, zoom: 1.2,
+                        scaleLimit: { min: 1, max: 5 },
                         label: { show: true, color: '#bbb', fontSize: 10 },
                         itemStyle: {
                             areaColor: 'rgba(255,255,255,0.05)',
