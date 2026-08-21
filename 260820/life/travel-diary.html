@@ -266,16 +266,27 @@
         { min: 6, label: '6次+', color: '#E74C3C' }
     ];
 
-    function getProvinceColor(name) {
-        const count = provinceVisits[name] || 0;
-        for (const p of colorPieces) {
-            if (p.min !== undefined && p.max !== undefined) {
-                if (count >= p.min && count <= p.max) return p.color;
-            } else if (p.min !== undefined && count >= p.min) {
-                return p.color;
-            }
-        }
-        return '#CCCCCC';
+    function getColor(count) {
+        if (count <= 0) return '#C0C0C0';
+        if (count === 1) return '#A8D8EA';
+        if (count === 2) return '#7EC8A0';
+        if (count === 3) return '#FFD93D';
+        if (count === 4) return '#FF9A76';
+        if (count === 5) return '#FF6B6B';
+        return '#E74C3C';
+    }
+
+    function getProvinceData() {
+        return Object.keys(provinceAdcodes).map(function(name) {
+            var count = provinceVisits[name] || 0;
+            var color = getColor(count);
+            return {
+                name: name,
+                value: count,
+                itemStyle: { areaColor: color },
+                emphasis: { itemStyle: { areaColor: color } }
+            };
+        });
     }
 
     // GeoJSON 多源容错
@@ -317,9 +328,7 @@
         document.getElementById('map-header').style.display = 'none';
         document.getElementById('city-legend').style.display = 'none';
 
-        var mapData = Object.keys(provinceAdcodes).map(function(name) {
-            return { name: name, value: provinceVisits[name] || 0 };
-        });
+        var mapData = getProvinceData();
 
         chart.clear();
         chart.setOption({
@@ -336,13 +345,7 @@
                     return html;
                 }
             },
-            visualMap: {
-                type: 'piecewise', pieces: colorPieces,
-                right: 10, top: 10,
-                textStyle: { color: '#bbb', fontSize: 11 },
-                itemWidth: 18, itemHeight: 10, itemGap: 6,
-                show: true
-            },
+            visualMap: { show: false },
             series: [{
                 type: 'map', map: 'china', roam: true, zoom: 1.2,
                 scaleLimit: { min: 1, max: 5 },
@@ -419,13 +422,14 @@
                     borderWidth: 1
                 },
                 emphasis: {
-                    label: { show: true, color: '#f39c12', fontSize: 12, fontWeight: 'bold' }
+                    label: { show: true, color: '#f39c12', fontSize: 12, fontWeight: 'bold' },
+                    itemStyle: { areaColor: 'rgba(255,255,255,0.05)' }
                 },
                 select: { disabled: true },
                 regions: [{
                     name: currentProvince,
                     itemStyle: { areaColor: 'rgba(100,149,237,0.4)' },
-                    emphasis: { itemStyle: { areaColor: 'rgba(100,149,237,0.6)' } }
+                    emphasis: { itemStyle: { areaColor: 'rgba(100,149,237,0.4)' } }
                 }]
             },
             series: [
