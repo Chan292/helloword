@@ -16,43 +16,39 @@
             background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
             color: #fff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .container {
-            text-align: center;
-            padding: 40px;
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            max-width: 800px;
-            width: 100%;
         }
 
         .back-link {
-            position: absolute;
+            position: fixed;
             top: 20px;
             left: 20px;
             color: #f39c12;
             text-decoration: none;
             font-size: 1rem;
-            transition: color 0.3s ease;
+            z-index: 100;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 8px 16px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
         }
 
         .back-link:hover {
             color: #e74c3c;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            text-align: center;
+            padding: 60px 20px 40px;
         }
 
         .diary-icon {
-            width: 120px;
-            height: 120px;
+            width: 100px;
+            height: 100px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #2ecc71, #27ae60);
-            margin: 0 auto 30px;
+            background: linear-gradient(135deg, #f39c12, #e74c3c);
+            margin: 0 auto 20px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -62,72 +58,324 @@
 
         h1 {
             font-size: 2.5rem;
-            margin-bottom: 30px;
-            background: linear-gradient(90deg, #2ecc71, #27ae60);
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, #f39c12, #e74c3c);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .subtitle {
-            font-size: 1.3rem;
-            color: #bbb;
-            margin-bottom: 50px;
-            line-height: 1.6;
+        .birthday {
+            font-size: 1.1rem;
+            color: #8899aa;
+            margin-bottom: 10px;
         }
 
-        .content-placeholder {
+        .subtitle {
+            font-size: 1.2rem;
+            color: #bbb;
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-date {
+            flex: 1;
+            text-align: right;
+            padding-right: 40px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-date {
+            text-align: left;
+            padding-right: 0;
+            padding-left: 40px;
+        }
+
+        .date-text {
+            font-size: 1.1rem;
+            color: #f39c12;
+            font-weight: 600;
+        }
+
+        .age-text {
+            font-size: 0.9rem;
+            color: #8899aa;
+            margin-top: 5px;
+        }
+
+        .timeline-dot {
+            width: 16px;
+            height: 16px;
+            background: #f39c12;
+            border-radius: 50%;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 5px;
+            box-shadow: 0 0 10px rgba(243, 156, 18, 0.5);
+        }
+
+        .timeline-content {
+            flex: 1;
+            padding-left: 40px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            padding-left: 0;
+            padding-right: 40px;
+            text-align: right;
+        }
+
+        .photo-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 15px;
-            padding: 40px;
-            margin-top: 30px;
+            overflow: hidden;
+            transition: all 0.3s ease;
             backdrop-filter: blur(10px);
         }
 
-        .content-placeholder p {
-            color: #999;
-            font-style: italic;
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border-color: #f39c12;
+        }
+
+        .photo-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-desc {
+            padding: 15px;
+        }
+
+        .photo-desc p {
+            font-size: 0.95rem;
+            color: #bbb;
+            line-height: 1.6;
         }
 
         footer {
-            width: 100%;
             text-align: center;
             color: #666;
             font-size: 0.9rem;
-            padding: 30px 0;
+            padding: 40px 20px;
         }
 
         @media (max-width: 768px) {
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-item,
+            .timeline-item:nth-child(even) {
+                flex-direction: column;
+                padding-left: 50px;
+            }
+
+            .timeline-date,
+            .timeline-item:nth-child(even) .timeline-date {
+                text-align: left;
+                padding: 0;
+                margin-bottom: 10px;
+            }
+
+            .timeline-dot {
+                left: 20px;
+                top: 0;
+            }
+
+            .timeline-content,
+            .timeline-item:nth-child(even) .timeline-content {
+                padding: 0;
+                text-align: left;
+            }
+
             h1 {
                 font-size: 1.8rem;
             }
 
-            .subtitle {
-                font-size: 1.1rem;
-            }
-
-            .container {
-                padding: 20px;
+            .photo-card img {
+                height: 200px;
             }
         }
     </style>
 </head>
 <body>
     <a href="../index.html" class="back-link">← 返回主页</a>
-    
-    <div class="container">
+
+    <div class="header">
         <div class="diary-icon">🐱</div>
         <h1>豆豆日记</h1>
-        <p class="subtitle">这里记录的是豆豆的成长生活</p>
-        
-        <div class="content-placeholder">
-            <p>日记内容将在这里展示...</p>
+        <p class="birthday">🎂 2025年9月18日出生</p>
+        <p class="subtitle">记录豆豆的每一个成长瞬间</p>
+    </div>
+
+    <div class="timeline">
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <div class="date-text">2025年11月7日</div>
+                <div class="age-text">50天 · 约1个月</div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="photo-card">
+                    <img src="images/251107.JPG" alt="豆豆50天">
+                    <div class="photo-desc">
+                        <p>小小的你，刚来到这个世界不久，眼睛里满是对世界的好奇~</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <div class="date-text">2025年11月8日</div>
+                <div class="age-text">51天 · 约1个月</div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="photo-card">
+                    <img src="images/251108.JPG" alt="豆豆51天">
+                    <div class="photo-desc">
+                        <p>一天一天在长大，开始学会调皮捣蛋了~</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <div class="date-text">2025年12月22日</div>
+                <div class="age-text">95天 · 约3个月</div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="photo-card">
+                    <img src="images/251222.JPG" alt="豆豆95天">
+                    <div class="photo-desc">
+                        <p>三个月啦！已经是个活泼好动的小家伙了~</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <div class="date-text">2026年2月1日</div>
+                <div class="age-text">136天 · 约4个月</div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="photo-card">
+                    <img src="images/260201.JPG" alt="豆豆136天">
+                    <div class="photo-desc">
+                        <p>四个月了，越来越有自己的小性格了~</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <div class="date-text">2026年3月14日</div>
+                <div class="age-text">177天 · 约6个月</div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="photo-card">
+                    <img src="images/260314.JPG" alt="豆豆177天">
+                    <div class="photo-desc">
+                        <p>半岁啦！已经是个小少年了，越来越帅气~</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <div class="date-text">2026年3月14日</div>
+                <div class="age-text">177天 · 约6个月</div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="photo-card">
+                    <img src="images/260314_2.JPG" alt="豆豆177天">
+                    <div class="photo-desc">
+                        <p>同一天的另一张照片，记录你的不同姿态~</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <div class="date-text">2026年4月29日</div>
+                <div class="age-text">223天 · 约7个月</div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="photo-card">
+                    <img src="images/260429.JPG" alt="豆豆223天">
+                    <div class="photo-desc">
+                        <p>七个月了，已经是个大孩子啦！</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="timeline-item">
+            <div class="timeline-date">
+                <div class="date-text">2026年6月3日</div>
+                <div class="age-text">258天 · 约8个月</div>
+            </div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-content">
+                <div class="photo-card">
+                    <img src="images/260603.JPG" alt="豆豆258天">
+                    <div class="photo-desc">
+                        <p>八个多月了，从小奶猫长成了小帅哥，时间过得真快呀~</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2026 Chan292. All rights reserved.</p>
+        <p>&copy; 2026 Chan292. 豆豆的成长日记</p>
     </footer>
 </body>
 </html>
