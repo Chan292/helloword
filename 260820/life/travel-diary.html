@@ -365,10 +365,13 @@
         }, true);
 
         chart.off('click');
+        var clickTimer = null;
         chart.on('click', function(params) {
+            if (clickTimer) return;
             if (params.componentType === 'series') {
-                const name = params.name;
+                var name = params.name;
                 if (provinceAdcodes[name] !== undefined) {
+                    clickTimer = setTimeout(function() { clickTimer = null; }, 500);
                     showProvinceView(name);
                 }
             }
@@ -434,11 +437,10 @@
             },
             series: [
             {
-                name: '已到访', type: 'effectScatter', coordinateSystem: 'geo',
+                name: '已到访', type: 'scatter', coordinateSystem: 'geo',
                 data: visitedData, symbolSize: 12,
                 itemStyle: { color: '#f39c12' },
-                label: { show: true, position: 'right', color: '#f39c12', fontSize: 11, formatter: '{b}' },
-                rippleEffect: { brushType: 'stroke' }
+                label: { show: true, position: 'right', color: '#f39c12', fontSize: 11, formatter: '{b}' }
             },
             {
                 name: '未到访', type: 'scatter', coordinateSystem: 'geo',
@@ -449,10 +451,13 @@
         });
 
         chart.off('click');
+        var clickTimer2 = null;
         chart.on('click', function(params) {
+            if (clickTimer2) return;
             if (params.componentType === 'geo') {
                 var name = params.name;
                 if (name && name !== currentProvince && provinceAdcodes[name] !== undefined) {
+                    clickTimer2 = setTimeout(function() { clickTimer2 = null; }, 500);
                     showProvinceView(name);
                 }
             }
