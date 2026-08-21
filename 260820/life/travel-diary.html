@@ -388,7 +388,7 @@
                     var isVisited = visited.some(function(v) {
                         return fname.indexOf(v) !== -1 || v.indexOf(fname.replace('市','').replace('地区','').replace('州','')) !== -1;
                     });
-                    return { name: fname, value: isVisited ? 1 : 0 };
+                    return { name: fname, value: isVisited ? 1 : 0, itemStyle: isVisited ? { areaColor: '#f39c12' } : undefined };
                 });
 
                 chart.hideLoading();
@@ -400,9 +400,6 @@
                             var status = params.value === 1 ? '已到访' : '未到访';
                             return '<b>' + params.name + '</b><br/>' + status;
                         }
-                    },
-                    visualMap: {
-                        show: false
                     },
                     series: [{
                         type: 'map', map: mapName, roam: true, zoom: 1.2,
@@ -418,12 +415,7 @@
                             itemStyle: { areaColor: '#e67e22' }
                         },
                         select: { disabled: true },
-                        data: mapData.map(function(d) {
-                            if (d.value === 1) {
-                                d.itemStyle = { areaColor: '#f39c12' };
-                            }
-                            return d;
-                        })
+                        data: mapData
                     }]
                 });
 
