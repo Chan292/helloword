@@ -442,6 +442,14 @@
         });
 
         chart.off('click');
+        chart.on('click', function(params) {
+            if (params.componentType === 'geo') {
+                var name = params.name;
+                if (name && name !== currentProvince && provinceAdcodes[name] !== undefined) {
+                    showProvinceView(name);
+                }
+            }
+        });
     }
 
     // 初始化
