@@ -423,7 +423,12 @@
                     label: { show: true, color: '#fff', fontSize: 12 },
                     itemStyle: { areaColor: '#e67e22' }
                 },
-                select: { disabled: true }
+                select: { disabled: true },
+                regions: [{
+                    name: currentProvince,
+                    itemStyle: { areaColor: 'rgba(100,149,237,0.4)' },
+                    emphasis: { itemStyle: { areaColor: 'rgba(100,149,237,0.6)' } }
+                }]
             },
             series: [
             {
